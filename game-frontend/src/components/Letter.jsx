@@ -18,9 +18,11 @@ const Letter = () => {
 
   return (
     <>
-      <button onClick={letterHandler} className="letter-btn">
-        Select letter
-      </button>
+      {!randomLetter && (
+        <button onClick={letterHandler} className="letter-btn">
+          Select letter
+        </button>
+      )}
       <h2>{randomLetter}</h2>
     </>
   );
