@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.game-form form,
+.categories-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.field,
+.category-title {
+  margin: 5px 10px;
+}
