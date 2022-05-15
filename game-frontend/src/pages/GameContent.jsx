@@ -4,11 +4,13 @@ import Start from "../components/Start";
 import TimeLeft from "../components/TimeLeft";
 import countries from "../helpers/countries";
 import fruitsAndVegetables from "../helpers/fruitsAndVegetables";
+import colors from "../helpers/colors";
 
 const GameContent = () => {
   const { selectedLetter, gameStarted } = useGameContext();
   const [country, setCountry] = useState("");
   const [fruitVegetable, setFruitVegetable] = useState("");
+  const [color, setColor] = useState("");
   const [points, setPoints] = useState(0);
 
   const checkCountry = () => {
@@ -42,12 +44,28 @@ const GameContent = () => {
     return 0;
   };
 
+  const checkColor = () => {
+    const isColorValid = colors.some((item) =>
+      item.toLowerCase().includes(color.toLowerCase())
+    );
+
+    if (
+      country.length > 0 &&
+      selectedLetter.toLowerCase() === country[0].toLowerCase() &&
+      isColorValid
+    ) {
+      return 10;
+    }
+    return 0;
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const countryPoints = checkCountry();
     const fruitPoints = checkFruitsAndVegetables();
+    const colorPoints = checkColor();
 
-    setPoints(countryPoints + fruitPoints);
+    setPoints(countryPoints + fruitPoints + colorPoints);
   };
 
   return (
@@ -77,7 +95,13 @@ const GameContent = () => {
               onChange={(e) => setFruitVegetable(e.target.value)}
             />
             <legend>Color</legend>
-            <input type="text" required disabled={!gameStarted} />
+            <input
+              type="text"
+              required
+              disabled={!gameStarted}
+              value={color}
+              onChange={(e) => setColor(e.target.value)}
+            />
             <input className="stop-btn" type="submit" value="STOP!" />
           </form>
         </div>
