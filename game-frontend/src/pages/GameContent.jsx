@@ -5,8 +5,10 @@ import TimeLeft from "../components/TimeLeft";
 import countries from "../helpers/countries";
 import fruitsAndVegetables from "../helpers/fruitsAndVegetables";
 import colors from "../helpers/colors";
+import { useNavigate } from "react-router-dom";
 
 const GameContent = () => {
+  const navigate = useNavigate();
   const { selectedLetter, gameStarted, stopped, setStopped } = useGameContext();
   const [country, setCountry] = useState("");
   const [fruitVegetable, setFruitVegetable] = useState("");
@@ -72,6 +74,12 @@ const GameContent = () => {
       checkPoints();
     }
   }, [stopped]);
+
+  useEffect(() => {
+    if (!selectedLetter) {
+      navigate("/");
+    }
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
