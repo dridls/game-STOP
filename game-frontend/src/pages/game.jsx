@@ -10,17 +10,13 @@ function App() {
   const { selectedLetter, gameStarted } = useGameContext();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (gameStarted) {
-      navigate("/play");
-    }
-  }, [gameStarted]);
-
   console.log("selectedLetter", selectedLetter);
   return (
     <div className="App">
       <Letter />
-      {selectedLetter && <Start />}
+      {selectedLetter && (
+        <button onClick={() => navigate("/play")}>Start Game</button>
+      )}
     </div>
   );
 }
