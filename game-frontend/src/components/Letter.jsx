@@ -1,19 +1,36 @@
 import React, { useEffect, useState } from "react";
+import { useGameContext } from "../contexts/gameContext";
 
 const Letter = () => {
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const { setSelectedLetter } = useGameContext();
   const [randomLetter, setRandomLetter] = useState("");
-  let shouldStop = false;
+
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const [shouldStopLetterSearch, setShouldStopLetterSearch] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
+
+  useEffect(() => {
+    let timeout;
+
+    if (shouldStopLetterSearch) {
+      setSelectedLetter(randomLetter);
+    }
+    if (!shouldStopLetterSearch && buttonClicked) {
+      timeout = setTimeout(() => {
+        setRandomLetter(alphabet[Math.floor(Math.random() * alphabet.length)]);
+      }, 250);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [shouldStopLetterSearch, randomLetter, buttonClicked]);
 
   const letterHandler = () => {
+    setButtonClicked(true);
     setTimeout(() => {
-      shouldStop = true;
-    }, 5000);
-    setInterval(() => {
-      if (!shouldStop) {
-        setRandomLetter(alphabet[Math.floor(Math.random() * alphabet.length)]);
-      }
-    }, 250);
+      setShouldStopLetterSearch(true);
+    }, 4000);
+
+    setRandomLetter(alphabet[Math.floor(Math.random() * alphabet.length)]);
   };
 
   return (

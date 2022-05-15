@@ -1,29 +1,37 @@
 import React, { useEffect, useState } from "react";
+import { useGameContext } from "../contexts/gameContext";
 
 const Start = () => {
-  const [getReadyCountdown, setGetReadyCountdown] = useState(3);
-  const startGameHandler = () => {
-    let previous = 3;
-    let startGame = false;
+  const { setGameStarted } = useGameContext();
+  const [readyCountdown, setReadyCountdown] = useState(3);
+  const [countdownStarted, setCountdownStarted] = useState(false);
 
+  const startGameHandler = () => {
+    setCountdownStarted(true);
     setTimeout(() => {
-      startGame = true;
-    }, 3000);
-    setInterval(() => {
-      if (!startGame) {
-        setGetReadyCountdown((previous = previous - 1));
-      } else if (previous === 1) {
-        setGetReadyCountdown("GO!");
-      }
-    }, 1000);
+      setGameStarted(true);
+    }, 4000);
   };
+
+  useEffect(() => {
+    let timeout;
+    if (readyCountdown > 0 && countdownStarted) {
+      timeout = setTimeout(() => {
+        setReadyCountdown(readyCountdown - 1);
+      }, 1000);
+    }
+    return () => clearTimeout(timeout);
+  }, [readyCountdown, countdownStarted]);
 
   return (
     <>
-      <button onClick={startGameHandler} className="start-btn">
-        Start Game
-      </button>
-      <h2>{getReadyCountdown}</h2>
+      {!countdownStarted ? (
+        <button onClick={startGameHandler} className="start-btn">
+          Start Game
+        </button>
+      ) : (
+        <>{readyCountdown <= 0 ? <h2>GO!</h2> : <h2>{readyCountdown}</h2>}</>
+      )}
     </>
   );
 };

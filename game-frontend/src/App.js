@@ -1,13 +1,13 @@
-import Letter from "./components/Letter";
-import Start from "./components/Start";
+import GamePage from "./pages/game";
+
 import "./App.css";
+import { GameContextProvider } from "./contexts/gameContext";
 
 function App() {
   return (
-    <div className="App">
-      <Letter />
-      <Start />
-    </div>
+    <GameContextProvider>
+      <GamePage />
+    </GameContextProvider>
   );
 }
 
