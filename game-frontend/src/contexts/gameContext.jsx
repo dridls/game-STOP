@@ -5,6 +5,7 @@ const GameContext = React.createContext();
 export const GameContextProvider = ({ children }) => {
   const [selectedLetter, setSelectedLetter] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
+  const [stopped, setStopped] = useState(false);
 
   return (
     <GameContext.Provider
@@ -13,6 +14,8 @@ export const GameContextProvider = ({ children }) => {
         gameStarted,
         setSelectedLetter,
         setGameStarted,
+        stopped,
+        setStopped,
       }}
     >
       {children}

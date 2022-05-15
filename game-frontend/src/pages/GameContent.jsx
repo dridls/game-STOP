@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGameContext } from "../contexts/gameContext";
 import Start from "../components/Start";
 import TimeLeft from "../components/TimeLeft";
@@ -7,7 +7,7 @@ import fruitsAndVegetables from "../helpers/fruitsAndVegetables";
 import colors from "../helpers/colors";
 
 const GameContent = () => {
-  const { selectedLetter, gameStarted } = useGameContext();
+  const { selectedLetter, gameStarted, stopped, setStopped } = useGameContext();
   const [country, setCountry] = useState("");
   const [fruitVegetable, setFruitVegetable] = useState("");
   const [color, setColor] = useState("");
@@ -59,8 +59,7 @@ const GameContent = () => {
     return 0;
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const checkPoints = () => {
     const countryPoints = checkCountry();
     const fruitPoints = checkFruitsAndVegetables();
     const colorPoints = checkColor();
@@ -68,12 +67,24 @@ const GameContent = () => {
     setPoints(countryPoints + fruitPoints + colorPoints);
   };
 
+  useEffect(() => {
+    if (stopped) {
+      checkPoints();
+    }
+  }, [stopped]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    checkPoints();
+    setStopped(true);
+  };
+
   return (
     <>
       <header>
         <div className="selected-letter">Selected letter: {selectedLetter}</div>
         <div className="game-points">Your Points: {points}</div>
-        {!gameStarted ? <Start /> : <TimeLeft />}
+        {!stopped && <>{!gameStarted ? <Start /> : <TimeLeft />}</>}
       </header>
       <main>
         <div className="game-form">
@@ -102,7 +113,9 @@ const GameContent = () => {
               value={color}
               onChange={(e) => setColor(e.target.value)}
             />
-            <input className="stop-btn" type="submit" value="STOP!" />
+            {gameStarted && (
+              <input className="stop-btn" type="submit" value="STOP!" />
+            )}
           </form>
         </div>
       </main>
