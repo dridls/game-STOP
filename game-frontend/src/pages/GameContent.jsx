@@ -9,19 +9,18 @@ const GameContent = () => {
   return (
     <>
       <header>
-        <Start />
         <div className="selected-letter">Selected letter: {selectedLetter}</div>
-        {gameStarted && <TimeLeft />}
+        {!gameStarted ? <Start /> : <TimeLeft />}
       </header>
       <main>
         <div className="game-form">
           <form>
             <legend>Country</legend>
-            <input type="text"></input>
+            <input type="text" disabled={!gameStarted}></input>
             <legend>Fruit</legend>
-            <input type="text"></input>
+            <input type="text" disabled={!gameStarted}></input>
             <legend>Color</legend>
-            <input type="text"></input>
+            <input type="text" disabled={!gameStarted}></input>
             <button className="stop-btn">STOP!</button>
           </form>
         </div>
