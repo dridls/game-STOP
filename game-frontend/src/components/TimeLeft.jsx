@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useGameContext } from "../contexts/gameContext";
 
 const TimeLeft = () => {
-  const { setGameStarted, setStopped } = useGameContext();
+  const { setGameState } = useGameContext();
   const [timeLeft, setTimeLeft] = useState(10);
 
   useEffect(() => {
@@ -16,13 +16,20 @@ const TimeLeft = () => {
         setTimeLeft(timeLeft - 1);
       }, 1000);
     } else if (timeLeft === 0) {
-      setGameStarted(false);
-      setStopped(true);
+      setGameState("STOPPED");
     }
     return () => clearTimeout(timeout);
   }, [timeLeft]);
 
-  return <>{timeLeft <= 0 ? <h2>TIME'S UP!</h2> : <h2>{timeLeft}</h2>}</>;
+  return (
+    <>
+      {timeLeft <= 0 ? (
+        <h2 className="stop">TIME'S UP!</h2>
+      ) : (
+        <h2 className="time-left">{timeLeft}</h2>
+      )}
+    </>
+  );
 };
 
 export default TimeLeft;

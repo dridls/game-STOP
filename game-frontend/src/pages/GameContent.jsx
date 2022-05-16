@@ -1,50 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { useGameContext } from "../contexts/gameContext";
-import Start from "../components/Start";
+import Countdown from "../components/Countdown";
 import TimeLeft from "../components/TimeLeft";
-import countries from "../helpers/countries";
-import fruitsAndVegetables from "../helpers/fruitsAndVegetables";
-import colors from "../helpers/colors";
+
 import { useNavigate } from "react-router-dom";
-import { checkList } from "../helpers/checkList";
 import Letter from "../components/Letter";
 
 const GameContent = () => {
   const navigate = useNavigate();
-  const { selectedLetter, gameStarted, stopped, setStopped } = useGameContext();
+  const {
+    selectedLetter,
+    gameState,
+    setGameState,
+    validatePoints,
+    points,
+    previousRounds,
+    numberOfRounds,
+  } = useGameContext();
   const [country, setCountry] = useState("");
   const [fruitVegetable, setFruitVegetable] = useState("");
   const [color, setColor] = useState("");
-  const [points, setPoints] = useState(0);
-  const [previousRounds, setPreviousRounds] = useState([]);
+  const [rounds, setRounds] = useState(0);
 
   const checkPoints = () => {
-    const countryPoints = checkList(country, countries, selectedLetter);
-    const fruitPoints = checkList(
-      fruitVegetable,
-      fruitsAndVegetables,
-      selectedLetter
-    );
-    const colorPoints = checkList(color, colors, selectedLetter);
-    const roundPoints = points + countryPoints + fruitPoints + colorPoints;
-    setPoints(roundPoints);
-    const roundSumary = {
-      selectedLetter,
-      country,
-      fruitVegetable,
-      color,
-    };
-    setPreviousRounds([...previousRounds, roundSumary]);
+    console.log("eita");
+    validatePoints({ country, color, fruitVegetable, selectedLetter });
+
     setCountry("");
     setFruitVegetable("");
     setColor("");
+
+    if (rounds >= numberOfRounds) return;
+
+    setRounds(rounds + 1);
+    setGameState("CHOOSING_LETTER");
   };
 
   useEffect(() => {
-    if (stopped) {
+    if (gameState === "STOPPED") {
       checkPoints();
     }
-  }, [stopped]);
+  }, [gameState]);
 
   useEffect(() => {
     if (!selectedLetter) {
@@ -54,16 +50,16 @@ const GameContent = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    checkPoints();
-    setStopped(true);
+    setGameState("STOPPED");
   };
 
   return (
     <>
-      <header>
-        <h2 className="selected-letter">Selected letter: {selectedLetter}</h2>
-        <h2 className="game-points">Your Points: {points}</h2>
-        {!stopped && <>{!gameStarted ? <Start /> : <TimeLeft />}</>}
+      <header className="header">
+        <h2 className="selected-letter">{selectedLetter}</h2>
+        {gameState === "COUNTDOWN" && <Countdown />}
+        {gameState === "STARTED" && <TimeLeft />}
+        <h2 className="game-points">{points} points</h2>
       </header>
       <main>
         <div className="game-form">
@@ -72,52 +68,84 @@ const GameContent = () => {
             <p className="category-title">COUNTRY</p>
             <p className="category-title">FRUIT / VEGETABLE</p>
             <p className="category-title">COLOR</p>
+            <p className="category-title">ROUND POINTS</p>
           </div>
 
           <div className="previous-rounds">
             {previousRounds.map((item) => (
-              <div className="previous-round">
+              <div
+                key={item.selectedLetter + item.color + item.country}
+                className="previous-round"
+              >
                 <p className="category-info">{item.selectedLetter}</p>
-                <p className="category-info">{item.country}</p>
-                <p className="category-info">{item.fruitVegetable}</p>
-                <p className="category-info">{item.color}</p>
+                <p
+                  className={`category-info ${
+                    item.country.points === 0 && "wrong-answer"
+                  }`}
+                >
+                  {item.country.value}
+                </p>
+                <p
+                  className={`category-info ${
+                    item.fruitVegetable.points === 0 && "wrong-answer"
+                  }`}
+                >
+                  {item.fruitVegetable.value}
+                </p>
+                <p
+                  className={`category-info ${
+                    item.color.points === 0 && "wrong-answer"
+                  }`}
+                >
+                  {item.color.value}
+                </p>
+                <p className="category-info">{item.roundPoints}</p>
               </div>
             ))}
           </div>
 
-          <form onSubmit={handleSubmit}>
-            <Letter />
-            <input
-              className="field"
-              type="text"
-              required
-              disabled={!gameStarted}
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-            />
+          {rounds < numberOfRounds && (
+            <form onSubmit={handleSubmit}>
+              <div className="container">
+                {gameState === "CHOOSING_LETTER" &&
+                previousRounds.length > 0 ? (
+                  <Letter />
+                ) : (
+                  <p className="selected-letter">{selectedLetter}</p>
+                )}
+                <input
+                  className="field"
+                  type="text"
+                  required
+                  disabled={gameState !== "STARTED"}
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                />
 
-            <input
-              className="field"
-              type="text"
-              required
-              disabled={!gameStarted}
-              value={fruitVegetable}
-              onChange={(e) => setFruitVegetable(e.target.value)}
-            />
+                <input
+                  className="field"
+                  type="text"
+                  required
+                  disabled={gameState !== "STARTED"}
+                  value={fruitVegetable}
+                  onChange={(e) => setFruitVegetable(e.target.value)}
+                />
 
-            <input
-              className="field"
-              type="text"
-              required
-              disabled={!gameStarted}
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-            />
+                <input
+                  className="field"
+                  type="text"
+                  required
+                  disabled={gameState !== "STARTED"}
+                  value={color}
+                  onChange={(e) => setColor(e.target.value)}
+                />
 
-            {gameStarted && (
-              <input className="stop-btn" type="submit" value="STOP!" />
-            )}
-          </form>
+                {gameState === "STARTED" && (
+                  <input className="stop-btn" type="submit" value="STOP!" />
+                )}
+              </div>
+            </form>
+          )}
         </div>
       </main>
     </>

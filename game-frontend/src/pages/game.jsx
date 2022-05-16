@@ -3,15 +3,33 @@ import { useNavigate } from "react-router-dom";
 import { useGameContext } from "../contexts/gameContext";
 
 function App() {
-  const { selectedLetter } = useGameContext();
+  const { selectedLetter, setGameState, numberOfRounds, setNumberOfRounds } =
+    useGameContext();
   const navigate = useNavigate();
 
-  console.log("selectedLetter", selectedLetter);
   return (
     <div className="App">
+      <div>
+        <h2>How many rounds do you wanna play?</h2>
+        <input
+          type="number"
+          max="10"
+          min="1"
+          value={numberOfRounds}
+          onChange={(e) => setNumberOfRounds(e.target.value)}
+        />
+      </div>
       <Letter />
       {selectedLetter && (
-        <button onClick={() => navigate("/play")}>Start Game</button>
+        <button
+          className="letter-btn"
+          onClick={() => {
+            setGameState("COUNTDOWN");
+            navigate("/play");
+          }}
+        >
+          Start Game
+        </button>
       )}
     </div>
   );

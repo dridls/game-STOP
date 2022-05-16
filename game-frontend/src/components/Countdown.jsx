@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useGameContext } from "../contexts/gameContext";
 
-const Start = () => {
-  const { setGameStarted } = useGameContext();
+const Countdown = () => {
+  const { setGameState } = useGameContext();
   const [readyCountdown, setReadyCountdown] = useState(3);
 
   useEffect(() => {
     setTimeout(() => {
-      setGameStarted(true);
+      setGameState("STARTED");
     }, 4000);
   }, []);
 
@@ -21,7 +21,15 @@ const Start = () => {
     return () => clearTimeout(timeout);
   }, [readyCountdown]);
 
-  return <>{readyCountdown <= 0 ? <h2>GO!</h2> : <h2>{readyCountdown}</h2>}</>;
+  return (
+    <>
+      {readyCountdown <= 0 ? (
+        <h2 className="go">GO!</h2>
+      ) : (
+        <h2 className="ready-countdown">{readyCountdown}</h2>
+      )}
+    </>
+  );
 };
 
-export default Start;
+export default Countdown;

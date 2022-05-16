@@ -4,7 +4,7 @@ export const checkList = (word, wordList, selectedLetter) => {
   );
 
   if (
-    word.length > 0 &&
+    word.length > 3 &&
     selectedLetter.toLowerCase() === word[0].toLowerCase() &&
     isWordValid
   ) {
