@@ -1,9 +1,9 @@
 import Home from "./pages/Home";
+import HighScore from "./pages/HighScore";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { GameContextProvider } from "./contexts/gameContext";
 import GameContent from "./pages/GameContent";
-import Result from "./pages/Result";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./Theme";
 
@@ -15,7 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/play" element={<GameContent />} />
-            <Route path="/result" element={<Result />} />
+            <Route path="/result" element={<HighScore />} />
           </Routes>
         </BrowserRouter>
       </GameContextProvider>
