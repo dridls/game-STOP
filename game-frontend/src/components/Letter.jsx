@@ -22,7 +22,11 @@ const Letter = ({ startSearch, isSmall }) => {
 
     if (shouldStopLetterSearch) {
       setSelectedLetter(randomLetter);
-      setGameState("COUNTDOWN");
+      if (!isSmall) {
+        setGameState("COUNTDOWN");
+      } else {
+        setGameState("STARTED");
+      }
     }
     if (!shouldStopLetterSearch && buttonClicked) {
       timeout = setTimeout(() => {

@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useGameContext } from "../contexts/gameContext";
 
 const TimeLeft = () => {
-  const { setGameState } = useGameContext();
-  const [timeLeft, setTimeLeft] = useState(10);
-
-  useEffect(() => {
-    setTimeout(() => {}, 60000);
-  }, []);
+  const { setGameState, timeLeft, setTimeLeft } = useGameContext();
 
   useEffect(() => {
     let timeout;

@@ -11,7 +11,7 @@ export const GameContextProvider = ({ children }) => {
   const [points, setPoints] = useState(0);
   const [previousRounds, setPreviousRounds] = useState([]);
   const [numberOfRounds, setNumberOfRounds] = useState(1);
-
+  const [timeLeft, setTimeLeft] = useState(60);
   const [gameState, setGameState] = useState();
   const [correctAnswer, setCorrectAnswer] = useState("true");
 
@@ -28,8 +28,11 @@ export const GameContextProvider = ({ children }) => {
       selectedLetter
     );
     const colorPoints = checkList(color, colors, selectedLetter);
-    const roundPoints = countryPoints + fruitPoints + colorPoints;
-    const totalPoints = points + countryPoints + fruitPoints + colorPoints;
+    let roundPoints = countryPoints + fruitPoints + colorPoints;
+    if (roundPoints === 30) {
+      roundPoints = roundPoints + timeLeft;
+    }
+    const totalPoints = points + roundPoints;
 
     setPoints(totalPoints);
 
@@ -62,11 +65,13 @@ export const GameContextProvider = ({ children }) => {
         points,
         previousRounds,
         numberOfRounds,
+        timeLeft,
         setSelectedLetter,
         setGameState,
         setCorrectAnswer,
         validatePoints,
         setNumberOfRounds,
+        setTimeLeft,
       }}
     >
       {children}
