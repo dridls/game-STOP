@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node ./app.js",
     "build": "npm run install:client:deps && npm run build:client && npm run copy:files",
-    "build:client": "cd ../frontend && npm run build && cd ../backend",
-    "install:client:deps": "cd ../frontend && npm i && cd ../backend",
-    "copy:files": "rm -rf ./public && mkdir ./public && cp -Rv ../frontend/build/* ./public"
+    "build:client": "cd ../game-frontend && npm run build && cd ../game-backend",
+    "install:client:deps": "cd ../game-frontend && npm i && cd ../game-backend",
+    "copy:files": "rm -rf ./public && mkdir ./public && cp -Rv ../game-frontend/build/* ./public"
   },
   "author": "",
   "license": "ISC",
