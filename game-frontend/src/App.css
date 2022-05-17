@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,10 +35,23 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
 }
 
-.container,
-.previous-round,
+.previous-round {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
 .categories-header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -53,16 +66,19 @@
   display: flex;
   justify-content: center;
   margin: 5px 10px;
+  padding: 10px 0px;
+  color: #2e4b60;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .letter-btn {
-  font-size: large;
+  font-size: 40px;
   background-color: #b7dadb;
   font-family: "Courier New", Courier, monospace;
   padding: 14px 40px;
+  border: solid 2px white;
   color: white;
   border-radius: 12px;
-  border: none;
   transition-duration: 0.4s;
   font-weight: bolder;
 }
@@ -73,38 +89,86 @@
   color: #b7dadb;
 }
 
-.header {
+.game-header {
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  height: 100px;
+  justify-content: space-between;
+  height: 150px;
+  border: 2px solid #2e4b60;
+  border-radius: 12px;
+  margin: 5px 10px;
+}
+
+.game-header .timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 40px;
+  font-size: 80px;
+  font-family: "Courier New", Courier, monospace;
+  margin: 0;
+  color: #d4504b;
+}
+
+.game-header .selected-letter,
+.game-points {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 40px;
+  align-items: left;
+  font-family: "Courier New", Courier, monospace;
+  margin: 0;
+  padding: 0;
+}
+
+.game-header h2 {
+  font-size: 40px;
+  color: #2e4b60;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.game-header h6 {
+  font-size: 15px;
+  color: #2e4b60;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .random-letter,
-.selected-letter,
-.game-points,
-.time-left,
-.ready-countdown {
+.selected-letter {
   font-size: 40px;
   font-family: "Courier New", Courier, monospace;
   color: #2e4b60;
   font-weight: bolder;
 }
 
-.go {
-  font-size: 60px;
+.game-header .go {
+  font-size: 100px;
   font-family: "Courier New", Courier, monospace;
   color: #789263;
   font-weight: bolder;
 }
 
-.stop {
-  font-size: 60px;
+.game-header .stop {
+  font-size: 100px;
   font-family: "Courier New", Courier, monospace;
   color: #d4504b;
   font-weight: bolder;
 }
-
+.game-header .timer .time-left,
+.ready-countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 40px;
+  font-size: 80px;
+  font-family: "Courier New", Courier, monospace;
+  margin: 0;
+  color: #d4504b;
+}
 .category-title {
   font-size: 20px;
   font-family: "Courier New", Courier, monospace;
@@ -137,4 +201,30 @@
   color: #d4504b;
   text-decoration: line-through;
   font-style: italic;
+}
+
+.small-letter-btn,
+.stop-btn {
+  font-size: 20px;
+  background-color: #b7dadb;
+  border: solid 2px white;
+  font-family: "Courier New", Courier, monospace;
+  color: white;
+  border-radius: 12px;
+  transition-duration: 0.4s;
+  font-weight: bolder;
+}
+
+.small-letter-btn:hover,
+stop-btn:hover {
+  background-color: white;
+  border: solid 2px #b7dadb;
+  color: #b7dadb;
+}
+
+.small-random-letter {
+  font-size: 20px;
+  font-family: "Courier New", Courier, monospace;
+  color: #2e4b60;
+  font-weight: bolder;
 }

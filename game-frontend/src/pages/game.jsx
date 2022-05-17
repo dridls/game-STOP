@@ -1,11 +1,21 @@
 import Letter from "../components/Letter";
 import { useNavigate } from "react-router-dom";
 import { useGameContext } from "../contexts/gameContext";
+import { useEffect } from "react";
 
 function App() {
-  const { selectedLetter, setGameState, numberOfRounds, setNumberOfRounds } =
-    useGameContext();
+  const {
+    selectedLetter,
+    setSelectedLetter,
+    setGameState,
+    numberOfRounds,
+    setNumberOfRounds,
+  } = useGameContext();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setSelectedLetter("");
+  }, []);
 
   return (
     <div className="App">

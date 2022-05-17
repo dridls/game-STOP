@@ -1,0 +1,11 @@
+{
+	"name": "application",
+	"version": "0.0.0",
+	"description": "agora vai",
+	"scripts": {
+		"build": "cd ./game-backend && npm i && npm run build",
+		"build:serve": "npm run build && cd .. && npm run start",
+		"start": "cd ./game-backend && npm start",
+		"start:client": "cd ./game-frontend && npm start"
+	}
+}

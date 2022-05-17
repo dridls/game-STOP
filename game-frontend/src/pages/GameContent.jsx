@@ -55,14 +55,22 @@ const GameContent = () => {
 
   return (
     <>
-      <header className="header">
-        <h2 className="selected-letter">{selectedLetter}</h2>
-        {gameState === "COUNTDOWN" && <Countdown />}
-        {gameState === "STARTED" && <TimeLeft />}
-        <h2 className="game-points">{points} points</h2>
+      <header className="game-header">
+        <div className="selected-letter">
+          <h6>The current letter is:</h6>
+          <h2>{selectedLetter}</h2>
+        </div>
+        <div className="timer">
+          {gameState === "COUNTDOWN" && <Countdown />}
+          {gameState === "STARTED" && <TimeLeft />}
+        </div>
+        <div className="game-points">
+          <h6>Total points:</h6>
+          <h2>{points}</h2>
+        </div>
       </header>
       <main>
-        <div className="game-form">
+        <div className="form-header">
           <div className="categories-header">
             <p className="category-title">LETTER</p>
             <p className="category-title">COUNTRY</p>
@@ -102,50 +110,52 @@ const GameContent = () => {
                 <p className="category-info">{item.roundPoints}</p>
               </div>
             ))}
+
+            {rounds < numberOfRounds && (
+              <form onSubmit={handleSubmit}>
+                <div className="container">
+                  {gameState === "CHOOSING_LETTER" &&
+                  previousRounds.length > 0 ? (
+                    <div className="selected-letter">
+                      <Letter isSmall />
+                    </div>
+                  ) : (
+                    <p className="selected-letter">{selectedLetter}</p>
+                  )}
+                  <input
+                    className="field"
+                    type="text"
+                    required
+                    disabled={gameState !== "STARTED"}
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                  />
+
+                  <input
+                    className="field"
+                    type="text"
+                    required
+                    disabled={gameState !== "STARTED"}
+                    value={fruitVegetable}
+                    onChange={(e) => setFruitVegetable(e.target.value)}
+                  />
+
+                  <input
+                    className="field"
+                    type="text"
+                    required
+                    disabled={gameState !== "STARTED"}
+                    value={color}
+                    onChange={(e) => setColor(e.target.value)}
+                  />
+
+                  {gameState === "STARTED" && (
+                    <input className="stop-btn" type="submit" value="STOP!" />
+                  )}
+                </div>
+              </form>
+            )}
           </div>
-
-          {rounds < numberOfRounds && (
-            <form onSubmit={handleSubmit}>
-              <div className="container">
-                {gameState === "CHOOSING_LETTER" &&
-                previousRounds.length > 0 ? (
-                  <Letter />
-                ) : (
-                  <p className="selected-letter">{selectedLetter}</p>
-                )}
-                <input
-                  className="field"
-                  type="text"
-                  required
-                  disabled={gameState !== "STARTED"}
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                />
-
-                <input
-                  className="field"
-                  type="text"
-                  required
-                  disabled={gameState !== "STARTED"}
-                  value={fruitVegetable}
-                  onChange={(e) => setFruitVegetable(e.target.value)}
-                />
-
-                <input
-                  className="field"
-                  type="text"
-                  required
-                  disabled={gameState !== "STARTED"}
-                  value={color}
-                  onChange={(e) => setColor(e.target.value)}
-                />
-
-                {gameState === "STARTED" && (
-                  <input className="stop-btn" type="submit" value="STOP!" />
-                )}
-              </div>
-            </form>
-          )}
         </div>
       </main>
     </>

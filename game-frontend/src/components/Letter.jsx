@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useGameContext } from "../contexts/gameContext";
 
-const Letter = ({ startSearch }) => {
+const Letter = ({ startSearch, isSmall }) => {
   const { setSelectedLetter, setGameState } = useGameContext();
   const [randomLetter, setRandomLetter] = useState("");
 
@@ -45,11 +45,16 @@ const Letter = ({ startSearch }) => {
   return (
     <>
       {!randomLetter ? (
-        <button onClick={letterHandler} className="letter-btn">
+        <button
+          onClick={letterHandler}
+          className={`${isSmall ? "small-letter-btn" : "letter-btn"}`}
+        >
           Select letter
         </button>
       ) : (
-        <h2 className="random-letter">{randomLetter}</h2>
+        <h2 className={`${isSmall ? "small-random-letter" : "random-letter"}`}>
+          {randomLetter}
+        </h2>
       )}
     </>
   );
