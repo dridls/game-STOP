@@ -1,41 +1,37 @@
-/* .App {
-  text-align: center;
+.game-page {
+  display: flex;
+  max-height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.game-settings {
+  width: 60%;
+  padding: 10%;
+  justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+.number-of-rounds {
+  width: 150px;
+  margin: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.high-scores {
+  width: 40%;
+  overflow: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+.high-score {
+  display: flex;
+  width: 100%;
+}
+
+.high-score .player {
+  width: 70%;
+}
+.high-score .score {
+  width: 30%;
+}
 
 .container {
   display: grid;
@@ -68,13 +64,11 @@
   margin: 5px 10px;
   padding: 10px 0px;
   color: #2e4b60;
-  font-family: "Courier New", Courier, monospace;
 }
 
 .letter-btn {
   font-size: 40px;
   background-color: #b7dadb;
-  font-family: "Courier New", Courier, monospace;
   padding: 14px 40px;
   border: solid 2px white;
   color: white;
@@ -94,8 +88,7 @@
   align-items: center;
   justify-content: space-between;
   height: 150px;
-  border: 2px solid #2e4b60;
-  border-radius: 12px;
+  border-radius: 16px;
   margin: 5px 10px;
 }
 
@@ -106,7 +99,6 @@
   justify-content: center;
   padding: 10px 40px;
   font-size: 80px;
-  font-family: "Courier New", Courier, monospace;
   margin: 0;
   color: #d4504b;
 }
@@ -119,7 +111,6 @@
   justify-content: center;
   padding: 10px 40px;
   align-items: left;
-  font-family: "Courier New", Courier, monospace;
   margin: 0;
   padding: 0;
 }
@@ -127,33 +118,28 @@
 .game-header h2 {
   font-size: 40px;
   color: #2e4b60;
-  font-family: "Courier New", Courier, monospace;
 }
 
 .game-header h6 {
   font-size: 15px;
   color: #2e4b60;
-  font-family: "Courier New", Courier, monospace;
 }
 
 .random-letter,
 .selected-letter {
   font-size: 40px;
-  font-family: "Courier New", Courier, monospace;
   color: #2e4b60;
   font-weight: bolder;
 }
 
 .game-header .go {
   font-size: 100px;
-  font-family: "Courier New", Courier, monospace;
   color: #789263;
   font-weight: bolder;
 }
 
 .game-header .stop {
   font-size: 100px;
-  font-family: "Courier New", Courier, monospace;
   color: #d4504b;
   font-weight: bolder;
 }
@@ -165,18 +151,16 @@
   justify-content: center;
   padding: 10px 40px;
   font-size: 80px;
-  font-family: "Courier New", Courier, monospace;
   margin: 0;
   color: #d4504b;
 }
 .category-title {
-  font-size: 20px;
-  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
   color: #2e4b60;
   font-weight: bold;
   background-color: #b7dadb;
   padding: 7px 20px;
-  border-radius: 12px;
+  border-radius: 16px;
   height: 40px;
   text-align: center;
 }
@@ -185,13 +169,11 @@
 .previous-rounds,
 .category-info {
   font-size: 20px;
-  font-family: "Courier New", Courier, monospace;
   color: #b7dadb;
 }
 
 .selected-letter {
   font-size: 20px;
-  font-family: "Courier New", Courier, monospace;
   color: #2e4b60;
   margin: 5px 10px;
   text-align: center;
@@ -208,7 +190,6 @@
   font-size: 20px;
   background-color: #b7dadb;
   border: solid 2px white;
-  font-family: "Courier New", Courier, monospace;
   color: white;
   border-radius: 12px;
   transition-duration: 0.4s;
@@ -224,7 +205,15 @@ stop-btn:hover {
 
 .small-random-letter {
   font-size: 20px;
-  font-family: "Courier New", Courier, monospace;
   color: #2e4b60;
   font-weight: bolder;
+}
+
+.result-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }

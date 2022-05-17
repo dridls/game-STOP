@@ -5,6 +5,7 @@ import TimeLeft from "../components/TimeLeft";
 
 import { useNavigate } from "react-router-dom";
 import Letter from "../components/Letter";
+import { Button, Container, CssBaseline, TextField } from "@mui/material";
 
 const GameContent = () => {
   const navigate = useNavigate();
@@ -59,7 +60,8 @@ const GameContent = () => {
   };
 
   return (
-    <>
+    <Container>
+      <CssBaseline />
       <header className="game-header">
         <div className="selected-letter">
           <h6>The current letter is:</h6>
@@ -127,35 +129,57 @@ const GameContent = () => {
                   ) : (
                     <p className="selected-letter">{selectedLetter}</p>
                   )}
-                  <input
-                    className="field"
-                    type="text"
-                    required
-                    disabled={gameState !== "STARTED"}
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                  />
 
-                  <input
-                    className="field"
-                    type="text"
-                    required
-                    disabled={gameState !== "STARTED"}
-                    value={fruitVegetable}
-                    onChange={(e) => setFruitVegetable(e.target.value)}
-                  />
+                  <div className="field">
+                    <TextField
+                      id="country"
+                      type="text"
+                      fullWidth
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      required
+                      disabled={gameState !== "STARTED"}
+                      value={country}
+                      onChange={(e) => setCountry(e.target.value)}
+                    />
+                  </div>
 
-                  <input
-                    className="field"
-                    type="text"
-                    required
-                    disabled={gameState !== "STARTED"}
-                    value={color}
-                    onChange={(e) => setColor(e.target.value)}
-                  />
+                  <div className="field">
+                    <TextField
+                      className="field"
+                      type="text"
+                      required
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      disabled={gameState !== "STARTED"}
+                      value={fruitVegetable}
+                      onChange={(e) => setFruitVegetable(e.target.value)}
+                    />
+                  </div>
+                  <div className="field">
+                    <TextField
+                      className="field"
+                      type="text"
+                      required
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      disabled={gameState !== "STARTED"}
+                      value={color}
+                      onChange={(e) => setColor(e.target.value)}
+                    />
+                  </div>
 
                   {gameState === "STARTED" && (
-                    <input className="stop-btn" type="submit" value="STOP!" />
+                    <Button
+                      variant="outlined"
+                      className="stop-btn"
+                      type="submit"
+                    >
+                      STOP!
+                    </Button>
                   )}
                 </div>
               </form>
@@ -163,7 +187,7 @@ const GameContent = () => {
           </div>
         </div>
       </main>
-    </>
+    </Container>
   );
 };
 

@@ -1,9 +1,6 @@
 const HighScores = require("../models/HighScores");
 
 const addHighScore = async (req, res) => {
-  console.log("aaaaaaa");
-  console.log("body", req.body);
-
   try {
     await HighScores.create({
       name: req.body.name,

@@ -3,6 +3,7 @@ import { useGameContext } from "../contexts/gameContext";
 
 import { useNavigate } from "react-router-dom";
 import { ENDPOINT } from "../constants";
+import { Button, Container, CssBaseline } from "@mui/material";
 
 const Result = () => {
   const navigate = useNavigate();
@@ -27,8 +28,10 @@ const Result = () => {
   };
 
   return (
-    <div>
-      <div>
+    <Container>
+      <CssBaseline />
+
+      <div className="result-page">
         <p className="name">What is your name?</p>
         <input
           type="text"
@@ -36,9 +39,11 @@ const Result = () => {
           onChange={(e) => setName(e.target.value)}
         />
         <p className="score">Your score: {points}</p>
+        <Button variant="contained" onClick={handleSubmit}>
+          Submit your result
+        </Button>
       </div>
-      <button onClick={handleSubmit}>Submit your result</button>
-    </div>
+    </Container>
   );
 };
 

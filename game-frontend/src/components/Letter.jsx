@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useGameContext } from "../contexts/gameContext";
+import Button from "@mui/material/Button";
 
 const Letter = ({ startSearch, isSmall }) => {
   const { setSelectedLetter, setGameState } = useGameContext();
@@ -49,12 +50,9 @@ const Letter = ({ startSearch, isSmall }) => {
   return (
     <>
       {!randomLetter ? (
-        <button
-          onClick={letterHandler}
-          className={`${isSmall ? "small-letter-btn" : "letter-btn"}`}
-        >
+        <Button onClick={letterHandler} variant="contained">
           Select letter
-        </button>
+        </Button>
       ) : (
         <h2 className={`${isSmall ? "small-random-letter" : "random-letter"}`}>
           {randomLetter}

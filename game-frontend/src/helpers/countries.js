@@ -234,7 +234,7 @@ const countries = [
   "Uzbekistan",
   "Vanuatu",
   "Venezuela",
-  "Viet Nam",
+  "Vietnam",
   "Virgin Islands, British",
   "Virgin Islands, U.S.",
   "Wallis and Futuna",
