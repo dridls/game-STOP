@@ -1,4 +1,4 @@
-import GamePage from "./pages/GamePage";
+import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { GameContextProvider } from "./contexts/gameContext";
@@ -13,7 +13,7 @@ function App() {
       <GameContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<GamePage />} />
+            <Route path="/" element={<Home />} />
             <Route path="/play" element={<GameContent />} />
             <Route path="/result" element={<Result />} />
           </Routes>
