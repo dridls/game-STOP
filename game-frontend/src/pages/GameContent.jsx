@@ -22,8 +22,13 @@ const GameContent = () => {
   const [color, setColor] = useState("");
   const [rounds, setRounds] = useState(0);
 
+  useEffect(() => {
+    if (rounds >= numberOfRounds) {
+      navigate("/result");
+    }
+  }, [rounds, numberOfRounds]);
+
   const checkPoints = () => {
-    console.log("eita");
     validatePoints({ country, color, fruitVegetable, selectedLetter });
 
     setCountry("");
