@@ -2,6 +2,7 @@ import Letter from "../components/Letter";
 import { useNavigate } from "react-router-dom";
 import { useGameContext } from "../contexts/gameContext";
 import { useEffect, useState } from "react";
+import { ENDPOINT } from "../constants";
 
 function App() {
   const {
@@ -19,7 +20,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:8765/api/high-scores")
+    fetch(ENDPOINT + "/api/high-scores")
       .then((response) => response.json())
       .then((response) => setHighScores(response || []))
       .catch((err) => console.error(err));

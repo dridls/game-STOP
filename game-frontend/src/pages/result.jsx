@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { useGameContext } from "../contexts/gameContext";
 
 import { useNavigate } from "react-router-dom";
+import { ENDPOINT } from "../constants";
 
 const Result = () => {
   const navigate = useNavigate();
   const { points } = useGameContext();
   const [name, setName] = useState("");
   const handleSubmit = () => {
-    fetch("http://localhost:8765/api/new-high-score", {
+    fetch(ENDPOINT + "/api/new-high-score", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
